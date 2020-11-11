@@ -33,4 +33,16 @@ public class IPLLeagueAnalyserTest {
         Assert.assertEquals(200.00, topStrikeRate.get(2).getSR(), 0.0);
     }
 
+    @Test
+    public void givenIPLData_ShouldReturnPlayerWithMax6s() throws Exception {
+
+        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithMax6s(FILE_PATH).get(0).getPlayer());
+    }
+
+    @Test
+    public void givenIPLData_ShouldReturnPlayerWithMax4s() throws Exception {
+
+        Assert.assertEquals("Shikhar Dhawan", new IPLLeagueAnalyser().getPlayerWithMax4s(FILE_PATH).get(0).player);
+    }
+
 }

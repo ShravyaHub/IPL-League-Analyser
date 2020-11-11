@@ -53,4 +53,16 @@ public class IPLMostRunsCSV {
     public double getSR() {
         return sr;
     }
+
+    public int getNum4s() {
+        return num4s;
+    }
+
+    public int getNum6s() {
+        return num6s;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
 }
