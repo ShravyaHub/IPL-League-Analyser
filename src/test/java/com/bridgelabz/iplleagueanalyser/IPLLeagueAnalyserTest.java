@@ -2,8 +2,6 @@ package com.bridgelabz.iplleagueanalyser;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.IOException;
 import java.util.List;
 
 public class IPLLeagueAnalyserTest {
@@ -48,6 +46,11 @@ public class IPLLeagueAnalyserTest {
     @Test
     public void givenIPLData_ShouldReturnsBestStrikingRatesWith6sAnd4s() {
         Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithBestStrikingRateWith6sAnd4s().get(0).getPlayer());
+    }
+
+    @Test
+    public void givenIPLData_ShouldReturnPlayerWithBestAverageAndBestStrikingRate() {
+        Assert.assertEquals("MS Dhoni", new IPLLeagueAnalyser().getPlayerWithBestAverageAndBestStrikingRate().get(0).getPlayer());
     }
 
 }

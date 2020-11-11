@@ -79,4 +79,22 @@ public class IPLLeagueAnalyser {
                 .collect(Collectors.toList());
     }
 
+    public List<IPLMostRunsCSV> getPlayerWithBestAverageAndBestStrikingRate() {
+        double bestAverage = iplBattingCSVList.stream()
+                .map(IPLMostRunsCSV::getAverage)
+                .max(Double::compare)
+                .get();
+        List<IPLMostRunsCSV> playerWithBestAverage = iplBattingCSVList.stream()
+                .filter(player -> player.getAverage() == bestAverage)
+                .collect(Collectors.toList());
+        double bestStrikeRate = playerWithBestAverage.stream()
+                .map(IPLMostRunsCSV::getSR)
+                .max(Double::compare)
+                .get();
+
+        return playerWithBestAverage.stream()
+                .filter(player -> player.getSR() == bestStrikeRate)
+                .collect(Collectors.toList());
+    }
+
 }
