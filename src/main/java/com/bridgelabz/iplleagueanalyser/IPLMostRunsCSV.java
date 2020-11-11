@@ -65,4 +65,9 @@ public class IPLMostRunsCSV {
     public String getPlayer() {
         return player;
     }
+
+
+    public int getRuns() {
+        return runs;
+    }
 }

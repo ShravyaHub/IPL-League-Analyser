@@ -44,13 +44,18 @@ public class IPLLeagueAnalyserTest {
     }
 
     @Test
-    public void givenIPLData_ShouldReturnsBestStrikingRatesWith6sAnd4s() {
+    public void givenIPLData_ShouldReturnBestStrikingRatesWith6sAnd4s() {
         Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithBestStrikingRateWith6sAnd4s().get(0).getPlayer());
     }
 
     @Test
     public void givenIPLData_ShouldReturnPlayerWithBestAverageAndBestStrikingRate() {
         Assert.assertEquals("MS Dhoni", new IPLLeagueAnalyser().getPlayerWithBestAverageAndBestStrikingRate().get(0).getPlayer());
+    }
+
+    @Test
+    public void givenIPLData_ShouldReturnPlayerWithMaximumRunsAndBestAverage() throws CensusAnalyserException {
+        Assert.assertEquals("David Warner", new IPLLeagueAnalyser().getPlayerWithMaximumRunsAndBestAverage(FILE_PATH).get(0).getPlayer());
     }
 
 }
