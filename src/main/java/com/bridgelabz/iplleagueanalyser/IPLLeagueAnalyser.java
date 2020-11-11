@@ -12,20 +12,32 @@ import java.util.stream.Collectors;
 public class IPLLeagueAnalyser {
 
     public static List<IPLMostRunsCSV> iplBattingCSVList;
+    public static List<IPLMostWicketsCSV> iplBowlingCSVList;
 
-    public int loadCSVData(String csvFilePath) throws CensusAnalyserException {
+    public int loadCSVBattingData(String csvFilePath) throws IPLAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             iplBattingCSVList = csvBuilder.getCSVFileList(reader, IPLMostRunsCSV.class);
             return iplBattingCSVList.size();
         } catch (IOException ioException) {
-            throw new CensusAnalyserException("Wrong file path", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+            throw new IPLAnalyserException("Wrong file path", IPLAnalyserException.ExceptionType.NO_SUCH_FILE);
         }
 
     }
 
-    public List<IPLMostRunsCSV> getTopBattingAverages(String csvFilePath) throws CensusAnalyserException {
-        loadCSVData(csvFilePath);
+    public int loadCSVBowlingData(String csvFilePath) throws IPLAnalyserException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            iplBowlingCSVList = csvBuilder.getCSVFileList(reader, IPLMostWicketsCSV.class);
+            return iplBowlingCSVList.size();
+        } catch (IOException ioException) {
+            throw new IPLAnalyserException("Wrong file path", IPLAnalyserException.ExceptionType.NO_SUCH_FILE);
+        }
+
+    }
+
+    public List<IPLMostRunsCSV> getTopBattingAverages(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBattingData(csvFilePath);
         List<IPLMostRunsCSV> sortedAvgList = iplBattingCSVList.stream()
                 .sorted(Comparator.comparingDouble(IPLMostRunsCSV::getAverage))
                 .collect(Collectors.toList());
@@ -34,7 +46,7 @@ public class IPLLeagueAnalyser {
     }
 
     public List<IPLMostRunsCSV> getTopStrikingRates(String csvFilePath) throws Exception {
-        loadCSVData(csvFilePath);
+        loadCSVBattingData(csvFilePath);
         List<IPLMostRunsCSV> sortedStrikingRateList = iplBattingCSVList.stream()
                 .sorted(Comparator.comparingDouble(IPLMostRunsCSV::getSR))
                 .collect(Collectors.toList());
@@ -42,8 +54,8 @@ public class IPLLeagueAnalyser {
         return sortedStrikingRateList;
     }
 
-    public List<IPLMostRunsCSV> getPlayerWithMax6s(String csvFilePath) throws CensusAnalyserException {
-        loadCSVData(csvFilePath);
+    public List<IPLMostRunsCSV> getPlayerWithMax6s(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBattingData(csvFilePath);
         List<IPLMostRunsCSV> playerWithMax6s = iplBattingCSVList.stream()
                 .sorted(Comparator.comparingDouble(IPLMostRunsCSV::getNum6s))
                 .collect(Collectors.toList());
@@ -51,8 +63,8 @@ public class IPLLeagueAnalyser {
         return playerWithMax6s ;
     }
 
-    public List<IPLMostRunsCSV> getPlayerWithMax4s(String csvFilePath) throws CensusAnalyserException {
-        loadCSVData(csvFilePath);
+    public List<IPLMostRunsCSV> getPlayerWithMax4s(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBattingData(csvFilePath);
         List<IPLMostRunsCSV> playerWithMax4s = iplBattingCSVList.stream()
                 .sorted(Comparator.comparingDouble(IPLMostRunsCSV::getNum4s))
                 .collect(Collectors.toList());
@@ -60,7 +72,8 @@ public class IPLLeagueAnalyser {
         return playerWithMax4s ;
     }
 
-    public List<IPLMostRunsCSV> getPlayerWithBestStrikingRateWith6sAnd4s() {
+    public List<IPLMostRunsCSV> getPlayerWithBestStrikingRateWith6sAnd4s(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBattingData(csvFilePath);
         int max4sAnd6s = iplBattingCSVList.stream()
                 .map(player -> (player.getNum4s() + player.getNum6s()))
                 .max(Integer::compare)
@@ -97,8 +110,8 @@ public class IPLLeagueAnalyser {
                 .collect(Collectors.toList());
     }
 
-    public List<IPLMostRunsCSV> getPlayerWithMaximumRunsAndBestAverage(String csvFilePath) throws CensusAnalyserException {
-        loadCSVData(csvFilePath);
+    public List<IPLMostRunsCSV> getPlayerWithMaximumRunsAndBestAverage(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBattingData(csvFilePath);
         int maximumRuns = iplBattingCSVList.stream()
                 .map(IPLMostRunsCSV::getRuns)
                 .max(Integer::compare)
@@ -114,6 +127,15 @@ public class IPLLeagueAnalyser {
         return playerWithMaximumRuns.stream()
                 .filter(player -> player.getAverage() == bestAverage)
                 .collect(Collectors.toList());
+    }
+
+    public List<IPLMostWicketsCSV> getTopBowlingAverages(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBowlingData(csvFilePath);
+        List<IPLMostWicketsCSV> sortedAvgBowlingList = iplBowlingCSVList.stream()
+                .sorted(Comparator.comparingDouble(player -> player.avg))
+                .collect(Collectors.toList());
+        Collections.reverse(sortedAvgBowlingList);
+        return sortedAvgBowlingList;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.bridgelabz.iplleagueanalyser;
 
-public class CensusAnalyserException extends Exception {
+public class IPLAnalyserException extends Exception {
 
     enum ExceptionType {
         NO_SUCH_FILE, NO_SUCH_FIELD
@@ -8,7 +8,7 @@ public class CensusAnalyserException extends Exception {
 
     ExceptionType exceptionType;
 
-    public CensusAnalyserException(String message, ExceptionType exceptionType) {
+    public IPLAnalyserException(String message, ExceptionType exceptionType) {
         super(message);
         this.exceptionType = exceptionType;
     }
