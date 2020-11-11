@@ -97,4 +97,23 @@ public class IPLLeagueAnalyser {
                 .collect(Collectors.toList());
     }
 
+    public List<IPLMostRunsCSV> getPlayerWithMaximumRunsAndBestAverage(String csvFilePath) throws CensusAnalyserException {
+        loadCSVData(csvFilePath);
+        int maximumRuns = iplBattingCSVList.stream()
+                .map(IPLMostRunsCSV::getRuns)
+                .max(Integer::compare)
+                .get();
+        List<IPLMostRunsCSV> playerWithMaximumRuns = iplBattingCSVList.stream()
+                .filter(player -> player.getRuns() == maximumRuns)
+                .collect(Collectors.toList());
+        double bestAverage = playerWithMaximumRuns.stream()
+                .map(IPLMostRunsCSV::getAverage)
+                .max(Double::compare)
+                .get();
+
+        return playerWithMaximumRuns.stream()
+                .filter(player -> player.getAverage() == bestAverage)
+                .collect(Collectors.toList());
+    }
+
 }
