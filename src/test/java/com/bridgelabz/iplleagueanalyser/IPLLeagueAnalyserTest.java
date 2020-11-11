@@ -6,56 +6,70 @@ import java.util.List;
 
 public class IPLLeagueAnalyserTest {
 
-    public static final String FILE_PATH = "C:\\Users\\Shravya\\Desktop\\MostRuns.csv";
+    public static final String IPL_BATTNG_FILE_PATH = "C:\\Users\\Shravya\\Desktop\\MostRuns.csv";
+    public static final String IPL_BOWLING_FILE_PATH = "C:\\Users\\Shravya\\Desktop\\MostWickets.csv";
 
     @Test
-    public void givenIPLData_ShouldReturnNumberOfRecords() throws CensusAnalyserException {
-        Assert.assertEquals(101,new IPLLeagueAnalyser().loadCSVData(FILE_PATH));
+    public void givenIPLBattingData_ShouldReturnNumberOfRecords() throws IPLAnalyserException {
+        Assert.assertEquals(101,new IPLLeagueAnalyser().loadCSVBattingData(IPL_BATTNG_FILE_PATH));
     }
 
     @Test
-    public void givenIPLData_ShouldReturnTopThreeBattingAverages() throws Exception {
+    public void givenIPLBattingData_ShouldReturnTopThreeBattingAverages() throws Exception {
 
-        List<IPLMostRunsCSV> topBattingAverage = new IPLLeagueAnalyser().getTopBattingAverages(FILE_PATH);
+        List<IPLMostRunsCSV> topBattingAverage = new IPLLeagueAnalyser().getTopBattingAverages(IPL_BATTNG_FILE_PATH);
         Assert.assertEquals(83.2, topBattingAverage .get(0).getAverage(), 0.0);
         Assert.assertEquals(69.2, topBattingAverage .get(1).getAverage(), 0.0);
         Assert.assertEquals(56.66, topBattingAverage .get(2).getAverage(), 0.0);
     }
 
     @Test
-    public void givenIPLData_ShouldReturnTopThreeStrikingRates() throws Exception {
+    public void givenIPLBattingData_ShouldReturnTopThreeStrikingRates() throws Exception {
 
-        List<IPLMostRunsCSV> topStrikeRate = new IPLLeagueAnalyser().getTopStrikingRates(FILE_PATH);
+        List<IPLMostRunsCSV> topStrikeRate = new IPLLeagueAnalyser().getTopStrikingRates(IPL_BATTNG_FILE_PATH);
         Assert.assertEquals(333.33, topStrikeRate.get(0).getSR(), 0.0);
         Assert.assertEquals(204.81, topStrikeRate.get(1).getSR(), 0.0);
         Assert.assertEquals(200.00, topStrikeRate.get(2).getSR(), 0.0);
     }
 
     @Test
-    public void givenIPLData_ShouldReturnPlayerWithMax6s() throws Exception {
+    public void givenIPLBattingData_ShouldReturnPlayerWithMax6s() throws Exception {
 
-        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithMax6s(FILE_PATH).get(0).getPlayer());
+        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithMax6s(IPL_BATTNG_FILE_PATH).get(0).getPlayer());
     }
 
     @Test
-    public void givenIPLData_ShouldReturnPlayerWithMax4s() throws Exception {
+    public void givenIPLBattingData_ShouldReturnPlayerWithMax4s() throws Exception {
 
-        Assert.assertEquals("Shikhar Dhawan", new IPLLeagueAnalyser().getPlayerWithMax4s(FILE_PATH).get(0).player);
+        Assert.assertEquals("Shikhar Dhawan", new IPLLeagueAnalyser().getPlayerWithMax4s(IPL_BATTNG_FILE_PATH).get(0).player);
     }
 
     @Test
-    public void givenIPLData_ShouldReturnBestStrikingRatesWith6sAnd4s() {
-        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithBestStrikingRateWith6sAnd4s().get(0).getPlayer());
+    public void givenIPLBattingData_ShouldReturnBestStrikingRatesWith6sAnd4s() throws IPLAnalyserException {
+        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithBestStrikingRateWith6sAnd4s(IPL_BATTNG_FILE_PATH).get(0).getPlayer());
     }
 
     @Test
-    public void givenIPLData_ShouldReturnPlayerWithBestAverageAndBestStrikingRate() {
+    public void givenIPLBattingData_ShouldReturnPlayerWithBestAverageAndBestStrikingRate() {
         Assert.assertEquals("MS Dhoni", new IPLLeagueAnalyser().getPlayerWithBestAverageAndBestStrikingRate().get(0).getPlayer());
     }
 
     @Test
-    public void givenIPLData_ShouldReturnPlayerWithMaximumRunsAndBestAverage() throws CensusAnalyserException {
-        Assert.assertEquals("David Warner", new IPLLeagueAnalyser().getPlayerWithMaximumRunsAndBestAverage(FILE_PATH).get(0).getPlayer());
+    public void givenIPLBattingData_ShouldReturnPlayerWithMaximumRunsAndBestAverage() throws IPLAnalyserException {
+        Assert.assertEquals("David Warner", new IPLLeagueAnalyser().getPlayerWithMaximumRunsAndBestAverage(IPL_BATTNG_FILE_PATH).get(0).getPlayer());
+    }
+
+    @Test
+    public void givenIPLBowlingData_ShouldReturnNumberOfRecords() throws IPLAnalyserException {
+        Assert.assertEquals(99,new IPLLeagueAnalyser().loadCSVBowlingData(IPL_BOWLING_FILE_PATH));
+    }
+
+    @Test
+    public void givenIPLBowlingData_ShouldReturnTopBowlingAverages() throws IPLAnalyserException {
+        List<IPLMostWicketsCSV> topBowlingAverages = new IPLLeagueAnalyser().getTopBowlingAverages(IPL_BOWLING_FILE_PATH);
+        Assert.assertEquals("Krishnappa Gowtham", topBowlingAverages.get(0).player);
+        Assert.assertEquals("Tim Southee", topBowlingAverages.get(1).player);
+        Assert.assertEquals("Prasidh Krishna", topBowlingAverages.get(2).player);
     }
 
 }
