@@ -45,4 +45,9 @@ public class IPLLeagueAnalyserTest {
         Assert.assertEquals("Shikhar Dhawan", new IPLLeagueAnalyser().getPlayerWithMax4s(FILE_PATH).get(0).player);
     }
 
+    @Test
+    public void givenIPLData_ShouldReturnsBestStrikingRatesWith6sAnd4s() {
+        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithBestStrikingRateWith6sAnd4s().get(0).getPlayer());
+    }
+
 }
