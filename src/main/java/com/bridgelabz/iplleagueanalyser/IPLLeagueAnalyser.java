@@ -42,4 +42,22 @@ public class IPLLeagueAnalyser {
         return sortedStrikingRateList;
     }
 
+    public List<IPLMostRunsCSV> getPlayerWithMax6s(String csvFilePath) throws IOException, CensusAnalyserException {
+        loadCSVData(csvFilePath);
+        List<IPLMostRunsCSV> playerWithMax6s = iplBattingCSVList.stream()
+                .sorted((player1, player2) -> Double.compare(player1.getNum6s(), player2.getNum6s()))
+                .collect(Collectors.toList());
+        Collections.reverse(playerWithMax6s);
+        return playerWithMax6s ;
+    }
+
+    public List<IPLMostRunsCSV> getPlayerWithMax4s(String csvFilePath) throws IOException, CensusAnalyserException {
+        loadCSVData(csvFilePath);
+        List<IPLMostRunsCSV> playerWithMax4s = iplBattingCSVList.stream()
+                .sorted((player1, player2) -> Double.compare(player1.getNum4s(), player2.getNum4s()))
+                .collect(Collectors.toList());
+        Collections.reverse(playerWithMax4s);
+        return playerWithMax4s ;
+    }
+
 }
