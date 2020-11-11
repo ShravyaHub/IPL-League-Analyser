@@ -42,22 +42,41 @@ public class IPLLeagueAnalyser {
         return sortedStrikingRateList;
     }
 
-    public List<IPLMostRunsCSV> getPlayerWithMax6s(String csvFilePath) throws IOException, CensusAnalyserException {
+    public List<IPLMostRunsCSV> getPlayerWithMax6s(String csvFilePath) throws CensusAnalyserException {
         loadCSVData(csvFilePath);
         List<IPLMostRunsCSV> playerWithMax6s = iplBattingCSVList.stream()
-                .sorted((player1, player2) -> Double.compare(player1.getNum6s(), player2.getNum6s()))
+                .sorted(Comparator.comparingDouble(IPLMostRunsCSV::getNum6s))
                 .collect(Collectors.toList());
         Collections.reverse(playerWithMax6s);
         return playerWithMax6s ;
     }
 
-    public List<IPLMostRunsCSV> getPlayerWithMax4s(String csvFilePath) throws IOException, CensusAnalyserException {
+    public List<IPLMostRunsCSV> getPlayerWithMax4s(String csvFilePath) throws CensusAnalyserException {
         loadCSVData(csvFilePath);
         List<IPLMostRunsCSV> playerWithMax4s = iplBattingCSVList.stream()
-                .sorted((player1, player2) -> Double.compare(player1.getNum4s(), player2.getNum4s()))
+                .sorted(Comparator.comparingDouble(IPLMostRunsCSV::getNum4s))
                 .collect(Collectors.toList());
         Collections.reverse(playerWithMax4s);
         return playerWithMax4s ;
+    }
+
+    public List<IPLMostRunsCSV> getPlayerWithBestStrikingRateWith6sAnd4s() {
+        int max4sAnd6s = iplBattingCSVList.stream()
+                .map(player -> (player.getNum4s() + player.getNum6s()))
+                .max(Integer::compare)
+                .get();
+        List<IPLMostRunsCSV> playerWithMax4sAnd6s = iplBattingCSVList.stream()
+                .filter((player -> (player.getNum6s() + player.getNum4s()) == max4sAnd6s))
+                .collect(Collectors.toList());
+
+        double bestStrikingRate = playerWithMax4sAnd6s.stream()
+                .map(IPLMostRunsCSV::getSR)
+                .max(Double::compare)
+                .get();
+
+        return playerWithMax4sAnd6s.stream()
+                .filter(player->player.getSR() == bestStrikingRate)
+                .collect(Collectors.toList());
     }
 
 }
