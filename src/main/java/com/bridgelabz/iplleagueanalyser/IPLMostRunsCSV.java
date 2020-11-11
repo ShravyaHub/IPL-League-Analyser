@@ -50,4 +50,7 @@ public class IPLMostRunsCSV {
         return this.avg;
     }
 
+    public double getSR() {
+        return sr;
+    }
 }

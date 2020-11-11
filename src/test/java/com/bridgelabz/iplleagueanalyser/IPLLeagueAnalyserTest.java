@@ -24,4 +24,13 @@ public class IPLLeagueAnalyserTest {
         Assert.assertEquals(56.66, topBattingAverage .get(2).getAverage(), 0.0);
     }
 
+    @Test
+    public void givenIPLData_ShouldReturnTopThreeStrikingRates() throws Exception {
+
+        List<IPLMostRunsCSV> topStrikeRate = new IPLLeagueAnalyser().getTopStrikingRates(FILE_PATH);
+        Assert.assertEquals(333.33, topStrikeRate.get(0).getSR(), 0.0);
+        Assert.assertEquals(204.81, topStrikeRate.get(1).getSR(), 0.0);
+        Assert.assertEquals(200.00, topStrikeRate.get(2).getSR(), 0.0);
+    }
+
 }

@@ -33,4 +33,13 @@ public class IPLLeagueAnalyser {
         return sortedAvgList;
     }
 
+    public List<IPLMostRunsCSV> getTopStrikingRates(String csvFilePath) throws Exception {
+        loadCSVData(csvFilePath);
+        List<IPLMostRunsCSV> sortedStrikingRateList = iplBattingCSVList.stream()
+                .sorted(Comparator.comparingDouble(IPLMostRunsCSV::getSR))
+                .collect(Collectors.toList());
+        Collections.reverse(sortedStrikingRateList);
+        return sortedStrikingRateList;
+    }
+
 }
