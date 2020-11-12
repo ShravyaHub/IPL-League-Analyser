@@ -242,10 +242,20 @@ public class IPLLeagueAnalyser {
                 .get();
 
         List<IPLMostRunsCSV> playerWithMaximumHundredsAndBestBattingAverages = iplBattingCSVList.stream()
-                .sorted((player1, player2) -> Double.compare(((player1.num100 / maximumHundreds) + (player1.avg / bestAverages)), ((player2.num100 / maximumHundreds) + (player2.avg / bestAverages))))
+                .sorted(Comparator.comparingDouble(player -> ((player.num100 / maximumHundreds) + (player.avg / bestAverages))))
                 .collect(Collectors.toList());
         Collections.reverse(playerWithMaximumHundredsAndBestBattingAverages);
         return playerWithMaximumHundredsAndBestBattingAverages;
+    }
+
+    public List<IPLMostRunsCSV> getPlayerWithZeroMaximumsAndFiftiesButBestBattingAverages(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBattingData(csvFilePath);
+        List<IPLMostRunsCSV> playerWithZeroMaximumAndFiftiesButBestBattingAverages = iplBattingCSVList.stream()
+                .filter(player -> player.num100 == 0 && player.num50 == 0)
+                .sorted(Comparator.comparingDouble(player -> player.avg))
+                .collect(Collectors.toList());
+        Collections.reverse(playerWithZeroMaximumAndFiftiesButBestBattingAverages);
+        return playerWithZeroMaximumAndFiftiesButBestBattingAverages;
     }
 
 }
