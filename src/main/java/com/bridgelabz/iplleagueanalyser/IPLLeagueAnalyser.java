@@ -230,4 +230,22 @@ public class IPLLeagueAnalyser {
         return allRoundersList;
     }
 
+    public List<IPLMostRunsCSV> getPlayerWithMaximumHundredsAndBestBattingAverage(){
+        int maximumHundreds = iplBattingCSVList.stream()
+                .map(player -> player.num100)
+                .max(Integer::compare)
+                .get();
+
+        double bestAverages = iplBattingCSVList.stream()
+                .map(player -> player.avg)
+                .max(Double::compare)
+                .get();
+
+        List<IPLMostRunsCSV> playerWithMaximumHundredsAndBestBattingAverages = iplBattingCSVList.stream()
+                .sorted((player1, player2) -> Double.compare(((player1.num100 / maximumHundreds) + (player1.avg / bestAverages)), ((player2.num100 / maximumHundreds) + (player2.avg / bestAverages))))
+                .collect(Collectors.toList());
+        Collections.reverse(playerWithMaximumHundredsAndBestBattingAverages);
+        return playerWithMaximumHundredsAndBestBattingAverages;
+    }
+
 }
