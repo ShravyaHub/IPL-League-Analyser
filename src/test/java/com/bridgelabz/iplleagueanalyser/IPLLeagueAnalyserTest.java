@@ -101,8 +101,13 @@ public class IPLLeagueAnalyserTest {
     }
 
     @Test
-    public void givenBattingAndBowlingData_whenSortedOnBestBattingAndBowlingAverage_ShouldReturnCorrectList() {
+    public void givenIPLBattingAndBowlingData_ShouldReturnPlayerWithBestBattingAndBowlingAverages() {
         Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithBestBattingAndBowlingAverages().get(0));
+    }
+
+    @Test
+    public void givenIPLBattingAndBowlingData_ShouldReturnBestAllRounder() {
+        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getBestAllRounder().get(0));
     }
 
 }
