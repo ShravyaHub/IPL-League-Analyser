@@ -74,10 +74,15 @@ public class IPLLeagueAnalyserTest {
 
     @Test
     public void givenIPLData_ShouldReturnTopBowlingStrikingRates() {
-        List<IPLMostWicketsCSV> topBowlingStrikingRatesList = new IPLLeagueAnalyser().getTopBowlingStrikeRates();
+        List<IPLMostWicketsCSV> topBowlingStrikingRatesList = new IPLLeagueAnalyser().getTopBowlingStrikingRates();
         Assert.assertEquals("Alzarri Joseph",topBowlingStrikingRatesList.get(0).player);
         Assert.assertEquals("Ish Sodhi",topBowlingStrikingRatesList.get(1).player);
         Assert.assertEquals("Khaleel Ahmed",topBowlingStrikingRatesList.get(2).player);
+    }
+
+    @Test
+    public void givenIPLData_ShouldReturnBestEconomyBowlingRates() {
+        Assert.assertEquals("Shivam Dube",new IPLLeagueAnalyser().getTopBowlingEconomyRates().get(0).player);
     }
 
 }
