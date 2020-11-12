@@ -85,4 +85,9 @@ public class IPLLeagueAnalyserTest {
         Assert.assertEquals("Shivam Dube",new IPLLeagueAnalyser().getTopBowlingEconomyRates().get(0).player);
     }
 
+    @Test
+    public void givenIPLData_ShouldReturnTopStrikingRatesWith5wAnd4w() throws IPLAnalyserException {
+        Assert.assertEquals("Kagiso Rabada",new IPLLeagueAnalyser().getTopStrikingRatesWith5wAnd4w(IPL_BOWLING_FILE_PATH).get(0).player);
+    }
+
 }

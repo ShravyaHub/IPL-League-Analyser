@@ -151,4 +151,19 @@ public class IPLLeagueAnalyser {
                 .collect(Collectors.toList());
     }
 
+    public List<IPLMostWicketsCSV> getTopStrikingRatesWith5wAnd4w(String csvFilePath) throws IPLAnalyserException {
+        loadCSVBowlingData(csvFilePath);
+        int max4wAnd5w = iplBowlingCSVList.stream()
+                .map(player -> player.num4w + player.num5w)
+                .max(Integer::compare)
+                .get();
+        List<IPLMostWicketsCSV> bowlersWithMax4wAnd5w = iplBowlingCSVList.stream()
+                .filter(player -> player.num4w + player.num5w == max4wAnd5w)
+                .collect(Collectors.toList());
+
+        return bowlersWithMax4wAnd5w.stream()
+                .sorted(Comparator.comparingDouble(player -> player.sr))
+                .collect(Collectors.toList());
+    }
+
 }
