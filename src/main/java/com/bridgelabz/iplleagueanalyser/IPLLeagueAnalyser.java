@@ -173,4 +173,13 @@ public class IPLLeagueAnalyser {
                 .collect(Collectors.toList());
     }
 
+    public List<IPLMostWicketsCSV> getBowlerWithMaximumWicketsAndBestAverages(){
+        List<IPLMostWicketsCSV> maximumWicketsAndBestAveragesLisgt = iplBowlingCSVList.stream()
+                .filter(player -> player.avg != 0)
+                .sorted(Comparator.comparingDouble(player -> player.wkts + (1 / player.avg)))
+                .collect(Collectors.toList());
+        Collections.reverse(maximumWicketsAndBestAveragesLisgt);
+        return maximumWicketsAndBestAveragesLisgt;
+    }
+
 }
