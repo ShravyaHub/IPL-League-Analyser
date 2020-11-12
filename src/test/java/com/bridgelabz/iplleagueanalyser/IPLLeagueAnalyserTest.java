@@ -90,4 +90,9 @@ public class IPLLeagueAnalyserTest {
         Assert.assertEquals("Kagiso Rabada",new IPLLeagueAnalyser().getTopStrikingRatesWith5wAnd4w(IPL_BOWLING_FILE_PATH).get(0).player);
     }
 
+    @Test
+    public void givenIPLData_ShouldReturnBestBowlingAveragesWithBestStrikingRates() {
+        Assert.assertEquals("Anukul Roy",new IPLLeagueAnalyser().getBestBowlingAveragesWithBestStrikingRates().get(0).player);
+    }
+
 }
