@@ -6,8 +6,8 @@ import java.util.List;
 
 public class IPLLeagueAnalyserTest {
 
-    public static final String IPL_BATTNG_FILE_PATH = "C:\\Users\\Shravya\\Desktop\\MostRuns.csv";
-    public static final String IPL_BOWLING_FILE_PATH = "C:\\Users\\Shravya\\Desktop\\MostWickets.csv";
+    public static final String IPL_BATTNG_FILE_PATH = "C:\\Users\\My PC\\Desktop\\Shravya\\MostRuns.csv";
+    public static final String IPL_BOWLING_FILE_PATH = "C:\\Users\\My PC\\Desktop\\Shravya\\MostWickets.csv";
 
     @Test
     public void givenIPLBattingData_ShouldReturnNumberOfRecords() throws IPLAnalyserException {
@@ -70,6 +70,14 @@ public class IPLLeagueAnalyserTest {
         Assert.assertEquals("Krishnappa Gowtham", topBowlingAverages.get(0).player);
         Assert.assertEquals("Tim Southee", topBowlingAverages.get(1).player);
         Assert.assertEquals("Prasidh Krishna", topBowlingAverages.get(2).player);
+    }
+
+    @Test
+    public void givenIPLData_ShouldReturnTopBowlingStrikingRates() {
+        List<IPLMostWicketsCSV> topBowlingStrikingRatesList = new IPLLeagueAnalyser().getTopBowlingStrikeRates();
+        Assert.assertEquals("Alzarri Joseph",topBowlingStrikingRatesList.get(0).player);
+        Assert.assertEquals("Ish Sodhi",topBowlingStrikingRatesList.get(1).player);
+        Assert.assertEquals("Khaleel Ahmed",topBowlingStrikingRatesList.get(2).player);
     }
 
 }
