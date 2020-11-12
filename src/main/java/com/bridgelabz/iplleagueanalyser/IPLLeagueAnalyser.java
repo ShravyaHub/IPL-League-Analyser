@@ -207,5 +207,27 @@ public class IPLLeagueAnalyser {
         return bestBattingAndBowlingAverages;
     }
 
+    public List<String> getBestAllRounder(){
+        List<String> allRoundersList=new ArrayList<>();
+
+        List<IPLMostRunsCSV> mostRunsList = iplBattingCSVList.stream()
+                .sorted(Comparator.comparingDouble(player -> player.runs))
+                .collect(Collectors.toList());
+        Collections.reverse(mostRunsList);
+
+        List<IPLMostWicketsCSV> mostWicketsList = iplBowlingCSVList.stream()
+                .sorted(Comparator.comparingDouble(player -> player.wkts))
+                .collect(Collectors.toList());
+        Collections.reverse(mostWicketsList);
+
+        for (IPLMostRunsCSV batter : mostRunsList) {
+            for (IPLMostWicketsCSV bowler : mostWicketsList) {
+                if (batter.player.equals(bowler.player)) {
+                    allRoundersList.add(batter.player);
+                }
+            }
+        }
+        return allRoundersList;
+    }
 
 }
