@@ -138,4 +138,11 @@ public class IPLLeagueAnalyser {
         return sortedAvgBowlingList;
     }
 
+    public List<IPLMostWicketsCSV> getTopBowlingStrikeRates(){
+        return iplBowlingCSVList.stream()
+                .filter(player -> player.sr!=0)
+                .sorted(Comparator.comparingDouble(player -> player.sr))
+                .collect(Collectors.toList());
+    }
+
 }
