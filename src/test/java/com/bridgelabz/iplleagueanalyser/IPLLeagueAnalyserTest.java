@@ -100,4 +100,9 @@ public class IPLLeagueAnalyserTest {
         Assert.assertEquals("Imran Tahir", new IPLLeagueAnalyser().getBowlerWithMaximumWicketsAndBestAverages().get(0).player);
     }
 
+    @Test
+    public void givenBattingAndBowlingData_whenSortedOnBestBattingAndBowlingAverage_ShouldReturnCorrectList() {
+        Assert.assertEquals("Andre Russell", new IPLLeagueAnalyser().getPlayerWithBestBattingAndBowlingAverages().get(0));
+    }
+
 }
